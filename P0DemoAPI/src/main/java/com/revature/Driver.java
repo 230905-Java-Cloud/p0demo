@@ -1,5 +1,6 @@
 package com.revature;
 
+import com.revature.daos.RoleDAO;
 import com.revature.utils.ConnectionUtil;
 
 import java.sql.Connection;
@@ -17,6 +18,17 @@ public class Driver {
         } catch(SQLException e) {
             e.printStackTrace(); //method from Exception Class that tell us what's wrong in the console
         }
+
+
+        //testing our DAO methods in main until Friday (when we talk Javalin)
+
+        //instantiate a RoleDAO object so we can use its methods
+        RoleDAO rDAO = new RoleDAO();
+
+        //remember, we need to print it out, since the DAO method returns a Role object
+        System.out.println(rDAO.getRoleById(4));
+
+
 
     }
 
