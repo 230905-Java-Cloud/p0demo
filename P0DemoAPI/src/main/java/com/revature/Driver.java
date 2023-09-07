@@ -1,10 +1,13 @@
 package com.revature;
 
+import com.revature.daos.EmployeeDAO;
 import com.revature.daos.RoleDAO;
+import com.revature.models.Employee;
 import com.revature.utils.ConnectionUtil;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Driver {
 
@@ -22,13 +25,21 @@ public class Driver {
 
         //testing our DAO methods in main until Friday (when we talk Javalin)
 
-        //instantiate a RoleDAO object so we can use its methods
+        //instantiate DAOs so we can use their methods
         RoleDAO rDAO = new RoleDAO();
+        EmployeeDAO eDAO = new EmployeeDAO();
 
         //remember, we need to print it out, since the DAO method returns a Role object
         System.out.println(rDAO.getRoleById(4));
 
+        //now, lets print out get all employees!
+        //lets use an enhanced for loop
+        ArrayList<Employee> employees = eDAO.getAllEmployees();
 
+        //"for every Employee object, which we'll call 'e', in the employees ArrayList..."
+        for(Employee e : employees){
+            System.out.println(e); //print out the employee!
+        }
 
     }
 
