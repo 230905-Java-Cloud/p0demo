@@ -7,6 +7,9 @@ public class Employee {
     private String last_name;
     private Role role; //We want to be able to access ALL role data instead of just the PK (primary key)
 
+    private int role_id_fk; //This variable will make insert employee easier
+    //because role_id_fk is just a number in the DB
+
     //BOILERPLATE CODE------------------------------
 
     //no-args constructor
@@ -19,6 +22,13 @@ public class Employee {
         this.first_name = first_name;
         this.last_name = last_name;
         this.role = role;
+    }
+
+    //all-args minus ID constructor (will be used for insert employee)
+    public Employee(String first_name, String last_name, int role_id_fk) {
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.role_id_fk = role_id_fk;
     }
 
     //getters and setters
@@ -52,6 +62,14 @@ public class Employee {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public int getRole_id_fk() {
+        return role_id_fk;
+    }
+
+    public void setRole_id_fk(int role_id_fk) {
+        this.role_id_fk = role_id_fk;
     }
 
     //toString
