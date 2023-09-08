@@ -3,10 +3,7 @@ package com.revature.daos;
 import com.revature.models.Employee;
 import com.revature.utils.ConnectionUtil;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class EmployeeDAO {
@@ -56,8 +53,33 @@ public class EmployeeDAO {
             System.out.println("GET ALL EMPLOYEES FAILED");
             e.printStackTrace();
         }
-
         return null;
+    }
+
+    public Employee insertEmployee(Employee employee){
+
+        //Remember, every DAO method must start with a try/catch and a connection being made
+        try(Connection conn = ConnectionUtil.getConnection()){
+
+            String sql = "INSERT INTO employees (first_name, last_name, role_id_fk) VALUES (?,?,?)";
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setString(1, employee.getFirst_name());
+            ps.setString(2, employee.getLast_name());
+            ps.setInt(3, employee.getRole_id_fk());
+
+            //now that our statement variables are filled with values, we execute the UPDATE (not query)
+            //executeQuery is for selects, executeUpdate is for insert/update/delete
+            ps.executeUpdate();
+
+            return employee;
+
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
+
+        return null; //if something goes wrong, return null
 
     }
 
