@@ -37,7 +37,7 @@ public class Driver {
 
         app.get("/employees", ec.getEmployeesHandler);
 
-
+        app.post("/employees", ec.insertEmployeeHandler);
 
 
 

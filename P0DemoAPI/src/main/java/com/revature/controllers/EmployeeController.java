@@ -40,4 +40,28 @@ public class EmployeeController {
 
     }; //lambdas with logic in curly braces need a semicolon
 
+    public Handler insertEmployeeHandler = (ctx) -> {
+
+        //with POST requests, we have JSON coming in the request body, we can access it with ctx.body()
+        String body = ctx.body();
+
+        //now, we use GSON again! We'll use it to convert the JSON String into an Employee object
+
+        Gson gson = new Gson();
+
+        //"Take the incoming JSON and turn it into an object of the Employee class"
+        Employee newEmployee = gson.fromJson(body, Employee.class);
+
+        //if the service returns not null, it was successful, return a success status code
+        //if the service returns null, send a failure status code
+        if(es.insertEmployee(newEmployee) != null){
+            ctx.status(201); //201 - CREATED
+            ctx.result(body); //send the pre-existing JSON "body" string
+        } else {
+            ctx.status(406); //406 - NOT ACCEPTABLE
+            ctx.result("Insert Employee Failed!");
+        }
+
+    };
+
 }
