@@ -1,15 +1,11 @@
 package com.revature;
 
 import com.revature.controllers.EmployeeController;
-import com.revature.daos.EmployeeDAO;
-import com.revature.daos.RoleDAO;
-import com.revature.models.Employee;
 import com.revature.utils.ConnectionUtil;
 import io.javalin.Javalin;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class Driver {
 
@@ -34,6 +30,7 @@ public class Driver {
 
         //instantiate controllers so we can access their handlers
         EmployeeController ec = new EmployeeController();
+
 
         app.get("/employees", ec.getEmployeesHandler);
 

@@ -18,25 +18,26 @@ public class EmployeeController {
 
     public Handler getEmployeesHandler = (ctx) -> {
 
+
         //what's ctx? the context object! It contains methods that help us process HTTP Requests/Responses
 
-        //I want an ArrayList of Employee objects courtesy of the EmployeeService
-        ArrayList<Employee> employees = es.getAllEmployees();
+    //I want an ArrayList of Employee objects courtesy of the EmployeeService
+    ArrayList<Employee> employees = es.getAllEmployees();
 
-        //GSON is a Class that helps us make JSON <-> Java conversions... less verbose than jackson!
-        Gson gson = new Gson();
+    //GSON is a Class that helps us make JSON <-> Java conversions... less verbose than jackson!
+    Gson gson = new Gson();
 
         /* GSON METHODS:
 
         toJson() - turns Java into JSON
         fromJson() - turns JSON into Java */
 
-        //Make sure the JSON is stored in a String type
-        String JSONEmployees = gson.toJson(employees);
+    //Make sure the JSON is stored in a String type
+    String JSONEmployees = gson.toJson(employees);
 
-        //we can use ctx to set the status code, and return the HTTP Response
-        ctx.status(200); //200 - OK
-        ctx.result(JSONEmployees); //the body of the response
+    //we can use ctx to set the status code, and return the HTTP Response
+    ctx.status(200); //200 - OK
+    ctx.result(JSONEmployees); //the body of the response
 
     }; //lambdas with logic in curly braces need a semicolon
 
@@ -61,6 +62,7 @@ public class EmployeeController {
             ctx.status(406); //406 - NOT ACCEPTABLE
             ctx.result("Insert Employee Failed!");
         }
+
 
     };
 

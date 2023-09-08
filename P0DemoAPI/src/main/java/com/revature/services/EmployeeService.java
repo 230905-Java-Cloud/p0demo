@@ -18,7 +18,7 @@ public class EmployeeService {
         return eDAO.getAllEmployees();
     }
 
-    public Employee insertEmployee(Employee employee){
+    public Employee insertEmployee(Employee employee) throws IllegalArgumentException{
 
         //we can run some checks on the incoming employee to make sure it's valid
 
