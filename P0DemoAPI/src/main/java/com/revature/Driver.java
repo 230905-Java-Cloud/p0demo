@@ -29,15 +29,19 @@ public class Driver {
         RoleDAO rDAO = new RoleDAO();
         EmployeeDAO eDAO = new EmployeeDAO();
 
-        //instantiating and inserting a new Employee
+        //instantiating and inserting a new Employee--------------------------------------
         Employee newEmployee = new Employee("Akash", "Kumar", 1);
 
         eDAO.insertEmployee(newEmployee);
 
-        //remember, we need to print it out, since the DAO method returns a Role object
-        System.out.println(rDAO.getRoleById(4));
+        //updating role salary--------------------------------------------------
 
-        //now, lets print out get all employees!
+        rDAO.updateRoleSalary("Fry Cook", 100000);
+
+        //remember, we need to print it out, since the DAO method returns a Role object----------------------
+        System.out.println(rDAO.getRoleById(3));
+
+        //now, lets print out get all employees!--------------------------------------------------
         //lets use an enhanced for loop
         ArrayList<Employee> employees = eDAO.getAllEmployees();
 
