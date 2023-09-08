@@ -29,6 +29,11 @@ public class Driver {
         RoleDAO rDAO = new RoleDAO();
         EmployeeDAO eDAO = new EmployeeDAO();
 
+        //instantiating and inserting a new Employee
+        Employee newEmployee = new Employee("Akash", "Kumar", 1);
+
+        eDAO.insertEmployee(newEmployee);
+
         //remember, we need to print it out, since the DAO method returns a Role object
         System.out.println(rDAO.getRoleById(4));
 

@@ -57,4 +57,27 @@ public class RoleDAO {
 
     }
 
+    public int updateRoleSalary(String title, int newSalary){
+
+        try(Connection conn = ConnectionUtil.getConnection()){
+
+            String sql = "UPDATE roles SET role_salary = ? WHERE role_title = ?";
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setInt(1, newSalary);
+            ps.setString(2, title);
+
+            ps.executeUpdate();
+
+            return newSalary; //return the user-inputted salary if update works appropriately
+
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
+
+        return 0; //return null only works if there is an OBJECT return type
+
+    }
+
 }
