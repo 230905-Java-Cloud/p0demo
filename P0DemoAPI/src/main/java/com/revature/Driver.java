@@ -1,6 +1,7 @@
 package com.revature;
 
 import com.revature.controllers.EmployeeController;
+import com.revature.controllers.RoleController;
 import com.revature.utils.ConnectionUtil;
 import io.javalin.Javalin;
 
@@ -30,13 +31,14 @@ public class Driver {
 
         //instantiate controllers so we can access their handlers
         EmployeeController ec = new EmployeeController();
+        RoleController rc = new RoleController();
 
 
         app.get("/employees", ec.getEmployeesHandler);
 
         app.post("/employees", ec.insertEmployeeHandler);
 
-
+        app.patch("/roles/{title}", rc.updateRoleSalaryHandler);
 
 
 
