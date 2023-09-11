@@ -40,7 +40,7 @@ public class AuthController {
             //we can use setAttribute() to set certain values to certain keys in our session attributes
             //THIS IS HOW WE CAN STORE USER-SPECIFIC DATA WITHIN A SESSION
             ses.setAttribute("employee_id", loggedInEmployee.getEmployee_id());
-            ses.setAttribute("role_id", loggedInEmployee.getRole().getRole_id());
+            ses.setAttribute("first_name", loggedInEmployee.getFirst_name());
 
             //ok... so, how can we retrieve these session attributes? getAttribute()!
             ses.getAttribute("employee_id");
@@ -48,6 +48,8 @@ public class AuthController {
             //if you wanted to have logout functionality, and kill the session, you could use invalidate()
             //ses.invalidate();
 
+            ctx.status(200); //200 - OK
+            ctx.result("Welcome, " + ses.getAttribute("first_name"));
 
         } else {
             ctx.status(401); //401 - UNAUTHORIZED
