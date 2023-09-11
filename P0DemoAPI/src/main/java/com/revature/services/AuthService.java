@@ -9,7 +9,7 @@ public class AuthService {
     //the DAO method will likely have a SELECT, where it looks for a user based on username/password
     //..where username = ? and password = ?
     //if nothing is returned you know it's not a valid username/password combo
-    
+
     public Employee hardcodedLogin(LoginDTO lDTO){
 
         if(lDTO.getFirst_name().equals("Caleb") && lDTO.getLast_name().equals("Mcolin")){
