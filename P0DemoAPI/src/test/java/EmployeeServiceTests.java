@@ -11,59 +11,58 @@ import org.mockito.junit.MockitoJUnitRunner;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-@RunWith(MockitoJUnitRunner.class) //this lets us use Mockito!
+@RunWith(MockitoJUnitRunner.class) //Tell the test class that we want to use Mockito
 public class EmployeeServiceTests {
 
-    @Mock
-    EmployeeDAO eDAO;
+    @Mock //Mocking the DAO (which is a dependency of the service)
+    EmployeeDAO eDAO; //WHY?? We don't want to make ACTUAL calls to the DB. can be bad!
 
-    @InjectMocks
+    @InjectMocks //attach the mocked dependency (DAO) into our (real) Service
     EmployeeService eService;
 
+    //GREEN TEST - test that insert works as expected when given VALID input
     @Test
     public void testInsertValidEmployee(){
 
-        //First, define a valid (enough) Employee object
-        //the actual data doesn't matter, since the Service is mocked
-        Employee e = new Employee(1, "john", "doe", new Role());
+        //First, define an employee with data that's valid enough to test on
+        //the actual data doesn't matter since the DAO is mocked
+        Employee testEmp = new Employee(25, "james", "tree", new Role());
 
-        //Stubbing - when save() is called in the DAO with employee e, return it back
-        when(eDAO.insertEmployee(e)).thenReturn(e);
+        //Stubbing - when insertEmployee() from the DAO is called, return our user
+        when(eDAO.insertEmployee(testEmp)).thenReturn(testEmp);
+        //"when eDAO is called with user testEmp, return testEmp" - seems pointless right?
 
-        //call the controller method, which should return an Employee
-        //...because the method from the Service returns an Employee
-        Employee returnedEmployee = eService.insertEmployee(e);
+        //Call the service method, which should return an employee
+        Employee returnedEmp = eService.insertEmployee(testEmp);
 
-        //verify that the save() method from the DAO was called
-        //verify is just a way to write more robust tests. we can confirm a method was called
-        verify(eDAO).insertEmployee(e);
+        //verify that the DAO method was called, and that it was called ONLY ONCE
+        verify(eDAO, times(1)).insertEmployee(testEmp);
 
-        //Basic assert - make sure the employee object is actually returned
-        assertNotNull(returnedEmployee);
-        //More meaningful assert - the returned Person has values we would expect.
-        assertEquals(returnedEmployee.getFirst_name(), "john");
+        //Basic assert - make sure a not null object was actually returned
+        assertNotNull(returnedEmp);
+
+        //More meaningful assert - make sure the returned person has the values we expect
+        assertEquals(returnedEmp.getFirst_name(), "james");
+        assertEquals(returnedEmp.getLast_name(), "tree");
 
     }
 
     @Test
     public void testInsertInvalidEmployee(){
 
-        //Define an invalid Employee object
-        Employee e = new Employee(1, null, "doe", new Role());
+        //Instantiate an invalid Employee object
+        Employee testEmp = new Employee(1, null, null, new Role());
 
-        //call the controller method, which should return null
-        //...because the method from the Service returns null if first_name is null
-        Employee returnedEmployee = eService.insertEmployee(e);
+        //call the service method, which should return null
+        Employee returnedEmp = eService.insertEmployee(testEmp);
 
         //verify that the DAO was never interacted with
         verifyNoInteractions(eDAO);
 
         //Basic assert - make sure null is actually returned
-        assertNull(returnedEmployee);
-        //More meaningful assert - the returned Employee has values we would expect.
-        assertEquals(returnedEmployee, null);
+        assertNull(returnedEmp);
 
-        //TODO: refactor service to throw IllegalArgumentException
+        //TODO: refactor for IllegalArgumentException
 
     }
 
