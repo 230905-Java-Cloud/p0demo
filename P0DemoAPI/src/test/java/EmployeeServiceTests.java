@@ -47,7 +47,7 @@ public class EmployeeServiceTests {
 
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testInsertInvalidEmployee(){
 
         //Instantiate an invalid Employee object
@@ -60,7 +60,7 @@ public class EmployeeServiceTests {
         verifyNoInteractions(eDAO);
 
         //Basic assert - make sure null is actually returned
-        assertNull(returnedEmp);
+        //assertNull(returnedEmp);
 
         //TODO: refactor for IllegalArgumentException
 
