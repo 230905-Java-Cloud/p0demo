@@ -64,9 +64,13 @@ public class EmployeeController {
         //if the service returns not null, it was successful, return a success status code
         //if the service returns null, send a failure status code
 
+        System.out.println(newEmployee);
+
        try {
            //Full employee from the DB (Tom is a Java God)
            Employee returnedEmp = es.insertEmployee(newEmployee);
+
+           System.out.println(returnedEmp);
 
            String JSONEmployee = gson.toJson(returnedEmp);
 

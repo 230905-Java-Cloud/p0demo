@@ -32,7 +32,7 @@ public class EmployeeControllerTests {
     Context ctx;
 
     @InjectMocks
-    EmployeeController eController;
+    EmployeeController eController = new EmployeeController();
     Gson gson = new Gson();
     Javalin app;
     CloseableHttpClient httpClient;
@@ -86,7 +86,30 @@ public class EmployeeControllerTests {
         //getEntity returns the body of the response, and we need to turn it into a string
         assertEquals(JSONEmp, EntityUtils.toString(response.getEntity()));
 
+    }
+
+    //RED TEST - Testing that invalid employee returns the appropriate status code
+    @Test
+    public void testInsertInvalidEmployee() throws Exception{
+
+        //invalid employee
+        Employee testEmp = new Employee("Javascript", "Johnson", 3);
+
+        String JSONEmp = gson.toJson(testEmp);
+
+        HttpPost request = new HttpPost("http://localhost:9090/employees");
+        request.setEntity(new StringEntity(JSONEmp));
+
+        //stubbing - set the service method to throw an exception when called w/ Javascript Johnson
+        when(eService.insertEmployee(any(Employee.class))).thenThrow(new IllegalArgumentException("dude...."));
+
+        HttpResponse response = httpClient.execute(request);
+
+        //assert that we get the appropriate error status code (406)
+        assertEquals(406, response.getStatusLine().getStatusCode());
 
     }
+
+
 
 }
