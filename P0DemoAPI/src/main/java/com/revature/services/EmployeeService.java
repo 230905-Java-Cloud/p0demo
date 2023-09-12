@@ -18,19 +18,19 @@ public class EmployeeService {
         return eDAO.getAllEmployees();
     }
 
-    public Employee insertEmployee(Employee employee) {
+    public Employee insertEmployee(Employee employee) throws IllegalArgumentException{
 
         //we can run some checks on the incoming employee to make sure it's valid
 
         //check that the first name and last name come in
         if(employee.getFirst_name() == null || employee.getLast_name() == null){
-            return null;
+            throw new IllegalArgumentException("Employee names must not be null!");
             //if the first or last name aren't in, return null, which will trigger a 400 in the controller
         }
 
         //check that there are no vulgarities in the names
-        if(employee.getFirst_name() == "Javascript"){
-            return null;
+        if(employee.getFirst_name().equals("Javascript")){
+            throw new IllegalArgumentException("Employee names must not be vulgar!");
         }
 
         //if the above checks pass, we can insert the new Employee!

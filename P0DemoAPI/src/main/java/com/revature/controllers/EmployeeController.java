@@ -63,12 +63,18 @@ public class EmployeeController {
 
         //if the service returns not null, it was successful, return a success status code
         //if the service returns null, send a failure status code
-        if(es.insertEmployee(newEmployee) != null){
-            ctx.status(201); //201 - CREATED
-            ctx.result(body); //send the pre-existing JSON "body" string
-        } else {
+
+       try {
+           //Full employee from the DB (Tom is a Java God)
+           Employee returnedEmp = es.insertEmployee(newEmployee);
+
+           String JSONEmployee = gson.toJson(returnedEmp);
+
+           ctx.status(201); //201 - CREATED
+           ctx.result(JSONEmployee); //send the newly stringified Employee back to the user
+       } catch(IllegalArgumentException e){
             ctx.status(406); //406 - NOT ACCEPTABLE
-            ctx.result("Insert Employee Failed!");
+            ctx.result(e.getMessage());
         }
 
 
