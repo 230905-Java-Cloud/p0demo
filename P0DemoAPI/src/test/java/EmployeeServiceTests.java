@@ -47,6 +47,7 @@ public class EmployeeServiceTests {
 
     }
 
+    //RED TEST - Test that the appropriate exception is thrown given an invalid user
     @Test(expected = IllegalArgumentException.class)
     public void testInsertInvalidEmployee(){
 
@@ -62,7 +63,7 @@ public class EmployeeServiceTests {
         //Basic assert - make sure null is actually returned
         //assertNull(returnedEmp);
 
-        //TODO: refactor for IllegalArgumentException
+        //refactored for IllegalArgumentException!!
 
     }
 
